@@ -17,7 +17,10 @@ public class CarDto {
     String model;
 
     public Car toEntity() {
-        return new Car(brand, model);
+        return Car.builder()
+                .brand(brand)
+                .model(model)
+                .build();
     }
 
     public static CarDto toDto(Car car) {
