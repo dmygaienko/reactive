@@ -18,6 +18,11 @@ public class CarApi {
         return carService.findByBrandAndModel(brand, model).map(CarDto::toDto);
     }
 
+    @GetMapping("/{id}")
+    public Mono<CarDto> findById(@PathVariable String id) {
+        return carService.findById(id).map(CarDto::toDto);
+    }
+
     @PostMapping
     public void findByBrandAndModel(@RequestBody CarDto carDto) {
         carService.save(carDto.toEntity());

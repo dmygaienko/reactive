@@ -28,4 +28,10 @@ public class CarService {
         log.info("Created new car with id - {}", id);
     }
 
+    public Mono<Car> findById(String id) {
+        return carRepo.findById(id)
+                .map(Mono::just)
+                .orElseGet(Mono::empty);
+    }
+
 }

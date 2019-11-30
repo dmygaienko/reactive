@@ -5,7 +5,7 @@ import org.springframework.data.aerospike.repository.AerospikeRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CarRepo extends AerospikeRepository<Car, Long> {
+public interface CarRepo extends AerospikeRepository<Car, String> {
 
     Car findByBrandAndModel(String brand, String model);
 
