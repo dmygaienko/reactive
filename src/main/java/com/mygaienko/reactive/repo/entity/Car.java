@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document
+@Document(collection = "car")
 @Builder(toBuilder = true)
 public class Car {
 
