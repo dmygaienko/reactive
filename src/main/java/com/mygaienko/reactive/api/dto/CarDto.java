@@ -12,19 +12,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CarDto {
 
+    String id;
+
     String brand;
 
     String model;
 
     public Car toEntity() {
         return Car.builder()
+                .id(id)
                 .brand(brand)
                 .model(model)
                 .build();
     }
 
     public static CarDto toDto(Car car) {
-        return new CarDto(car.getBrand(), car.getModel());
+        return new CarDto(car.getId(), car.getBrand(), car.getModel());
     }
 
 }

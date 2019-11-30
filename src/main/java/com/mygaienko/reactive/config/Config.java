@@ -5,17 +5,15 @@ import com.aerospike.client.async.EventLoops;
 import com.aerospike.client.async.NioEventLoops;
 import com.mygaienko.reactive.repo.CarRepo;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.aerospike.config.AbstractAerospikeDataConfiguration;
 import org.springframework.data.aerospike.config.AbstractReactiveAerospikeDataConfiguration;
-import org.springframework.data.aerospike.repository.config.EnableAerospikeRepositories;
 import org.springframework.data.aerospike.repository.config.EnableReactiveAerospikeRepositories;
 
 import java.util.Collection;
 import java.util.Collections;
 
 @Configuration
-@EnableAerospikeRepositories(basePackageClasses = CarRepo.class)
-public class Config extends AbstractAerospikeDataConfiguration {
+@EnableReactiveAerospikeRepositories(basePackageClasses = CarRepo.class)
+public class Config extends AbstractReactiveAerospikeDataConfiguration {
 
     @Override
     protected Collection<Host> getHosts() {
@@ -27,9 +25,9 @@ public class Config extends AbstractAerospikeDataConfiguration {
         return "test";
     }
 
-//    @Override
-//    protected EventLoops eventLoops() {
-//        return new NioEventLoops();
-//    }
+    @Override
+    protected EventLoops eventLoops() {
+        return new NioEventLoops();
+    }
 
 }

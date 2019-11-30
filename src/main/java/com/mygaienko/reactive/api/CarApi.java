@@ -4,6 +4,7 @@ import com.mygaienko.reactive.api.dto.CarDto;
 import com.mygaienko.reactive.service.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -14,6 +15,11 @@ public class CarApi {
     private final CarService carService;
 
     @GetMapping
+    public Flux<CarDto> findAll() {
+        return carService.findAll().map(CarDto::toDto);
+    }
+
+    @GetMapping("/byParams")
     public Mono<CarDto> findByBrandAndModel(@RequestParam String brand, @RequestParam String model) {
         return carService.findByBrandAndModel(brand, model).map(CarDto::toDto);
     }
@@ -24,8 +30,9 @@ public class CarApi {
     }
 
     @PostMapping
-    public void findByBrandAndModel(@RequestBody CarDto carDto) {
-        carService.save(carDto.toEntity());
+    public Mono<CarDto> save(@RequestBody CarDto carDto) {
+        return carService.save(carDto.toEntity())
+                .map(CarDto::toDto);
     }
 
     @GetMapping("/test")
