@@ -16,6 +16,22 @@ class CarServiceTest {
     }
 
     @Test
+    void testJust_switchIfEmpty() {
+        Flux.empty()
+                .switchIfEmpty(Mono.just(-1))
+                .subscribe(value -> log.info("Received value: {}", value));
+    }
+
+    @Test
+    void testJust_flatMap() {
+        Flux.just(1, 2, 3)
+                .flatMap(value -> Flux.just(value, value * 2))
+                .filter(value ->  value % 2 == 0)
+                .distinct()
+                .subscribe(value -> log.info("Received value: {}", value));
+    }
+
+    @Test
     void testJustWithTake() {
         Flux.just(1, 2, 3)
                 .take(1)
