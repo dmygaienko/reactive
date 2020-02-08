@@ -57,11 +57,11 @@ class CarServiceTest {
         Flux.just(1, 2, 3, 4, 5, 6)
 //                .log()
                 .subscribeOn(Schedulers.newParallel("subscribe-parallel-scheduler", 4))
-                .log()
-                .take(3)
+                .doOnNext(value -> log.info("Received value on 1st doOnNext: {}", value))
                 .publishOn(Schedulers.newParallel("publish-parallel-scheduler", 4))
+                .doOnNext(value -> log.info("Received value on 2nd doOnNext: {}", value))
                 .publishOn(Schedulers.newParallel("2nd-publish-parallel-scheduler", 4))
-                .subscribe(value -> log.info("Received value: {}", value));
+                .subscribe(value -> log.info("Finally received value: {}", value));
     }
 
     // ERROR HANDLING
