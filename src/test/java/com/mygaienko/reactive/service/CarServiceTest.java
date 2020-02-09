@@ -3,8 +3,12 @@ package com.mygaienko.reactive.service;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.UnicastProcessor;
 import reactor.core.scheduler.Schedulers;
+
+import static reactor.core.publisher.FluxSink.OverflowStrategy.BUFFER;
 
 @Slf4j
 class CarServiceTest {
@@ -111,6 +115,18 @@ class CarServiceTest {
                 .map(value -> value < 5 ? value : value/0)
                 .doOnError(error -> log.error("Got exception", error))
                 .subscribe(value -> log.info("Received value: {}", value));
+    }
+
+    // Processor
+    @Test
+    void testUnicastProcessor() {
+        UnicastProcessor<Integer> processor = UnicastProcessor.create();
+
+        FluxSink<Integer> sink = processor.sink(BUFFER);
+        sink.next(1);
+        sink.next(2);
+
+        processor.subscribe(value -> log.info("Received value: {}", value));
     }
 
 }
