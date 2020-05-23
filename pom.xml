@@ -19,6 +19,9 @@
 		<java.version>1.8</java.version>
 		<lombok.version>1.18.10</lombok.version>
 		<aerospike-reactor-client.version>4.4.3</aerospike-reactor-client.version>
+
+		<mavenmixin-sourceandjavadoc.version>0.0.2</mavenmixin-sourceandjavadoc.version>
+		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -65,10 +68,58 @@
 	</dependencies>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jxr-plugin</artifactId>
+					<version>${maven-jxr-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-help-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>show-profiles</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>active-profiles</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.odavid.maven.plugins</groupId>
+				<artifactId>mixin-maven-plugin</artifactId>
+				<version>0.1-alpha-39</version>
+				<extensions>true</extensions>
+				<configuration>
+					<mixins>
+						<mixin>
+							<groupId>com.mygaienko</groupId>
+							<artifactId>mixin</artifactId>
+							<version>1.0</version>
+						</mixin>
+					</mixins>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
