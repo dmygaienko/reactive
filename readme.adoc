@@ -1,0 +1,14 @@
+# Reactive practice project
+
+
+## Technologies
+. Spring Boot
+. Spring data reactive aerospoike
+. Aerospike database
+
+
+## Howto
+### To activate mixin with maven-source-plugin
+----
+mvn clean package -Dmavenmixin-sourceandjavadoc -DskipTests
+----
